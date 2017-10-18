@@ -9,7 +9,7 @@ export class Notification extends React.Component {
     if(this.props.events){
       notificationItems = this.props.events.map(event => {
         return(
-          <NotificationItem event={event}/>
+          <NotificationItem event={event} key = {event.id}/>
         )
       })
     }
