@@ -67,7 +67,7 @@ class App extends Component {
   }
 
   handleAdd(key, value){
-    let oldVals
+    let oldVals;
     if (key === "contacts"){
       oldVals = this.state.contacts;
     } else if (key === "todos") {
@@ -76,6 +76,7 @@ class App extends Component {
       oldVals = this.state.notes;
     } else {
       console.log(key + " is not a value in this.state");
+      return
     }
     oldVals.push(value);
     this.setState({key} : oldVals);
@@ -96,6 +97,7 @@ class App extends Component {
       index  = oldVals.findIndex(x => x.id === id);
     } else {
       console.log(key + " is not a value in this.state");
+      return
     }
     oldVals.splice(index, 1);
     this.setState({key}: oldVals);
@@ -108,6 +110,7 @@ class App extends Component {
     state.name = name;
     localStorage.setItem('squad', JSON.stringify(state));
   }
+
   getUpcomingEvents() {
     let eventList = this.state.eventList;
     let fromDate = moment().subtract(10, 'minute');
