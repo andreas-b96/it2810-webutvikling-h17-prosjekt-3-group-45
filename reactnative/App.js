@@ -2,29 +2,49 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
-import Header from './Components/Header';
-import Name from './Components/Name';
-import Todos from './Components/Todos';
-import Notes from './Components/Notes';
-import Welcome from './Components/Welcome';
-import Contacts from './Components/Contacts';
-import AgendaScreen from './Components/Agenda'
+import Todos from './Components/Todo/Todos';
+import Notes from './Components/Note/Notes';
+import Contacts from './Components/Contact/Contacts';
+import AgendaScreen from './Components/Agenda/Agenda'
 
 const MainScreenNavigator = TabNavigator({
   Todo: {
     screen: Todos,
     navigationOptions:{
-      tabBarLabel: 'Todo',
+      tabBarIcon: ({tintColor}) =>
+        <Icon
+          name='check-box'/>
     }
   },
-  Notes: {screen: Notes},
-  Contacts: {screen : Contacts},
-  Agenda: { screen: AgendaScreen }},
+  Notes: {
+    screen: Notes,
+    navigationOptions:{
+      tabBarIcon: ({tintColor}) =>
+        <Icon
+          name='note'/>
+    }
+  },
+  Contacts: {
+    screen : Contacts,
+    navigationOptions:{
+      tabBarIcon: ({tintColor}) =>
+        <Icon
+          name='contacts'/>
+    }
+  },
+  Agenda: {
+     screen: AgendaScreen,
+     navigationOptions:{
+       tabBarIcon: ({tintColor}) =>
+         <Icon
+           name='perm-contact-calendar'/>
+     }
+   }},
   {
     tabBarOptions : {
-      style: {
-        backgroundColor: 'red',
-      }
+      showIcon: true,
+      scrollEnabled:true,
+      activeTintColor: '#FFFFFF',
     }
   });
 
@@ -32,7 +52,7 @@ const PersonalManager = StackNavigator({
     Home: {
       screen: MainScreenNavigator,
       navigationOptions: {
-        title: 'Personal shit mangager!',
+        title: 'Personal manager',
       },
     },
   },
@@ -45,29 +65,10 @@ const PersonalManager = StackNavigator({
 );
 
 export default class App extends React.Component {
-  constructor(props){
-    super(props);
-    this.state={
-      name: 'Bortne',
-    }
-    this.handleNameChange = this.handleNameChange.bind(this);
-  }
-
-  handleNameChange(name){
-    this.setState({name: name});
-  }
 
   render() {
-    if (this.state.name === '') {
       return (
-        <View style={styles.container}>
-          <Header />
-          <Name name={this.state.name} changeName={this.handleNameChange}/>
-        </View>
-      );
-    }
-      return (
-          <PersonalManager name={this.state.name} style = {{backgroundColor: 'green'}} ref={nav => {this.navigator = nav;}}/>
+          <PersonalManager style = {{backgroundColor: '#F5F5F5'}} ref={nav => {this.navigator = nav;}}/>
       );
   }
 }

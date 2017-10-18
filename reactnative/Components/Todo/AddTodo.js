@@ -1,43 +1,47 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Form, TextInput } from 'react-native';
+import React, {Component} from 'react';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import uuid from 'uuid';
 
-class AddNote extends Component{
+class AddTodo extends React.Component {
 
-  constructor(){
+  constructor() {
     super();
     this.state = {
       title: '',
       description : '',
-      newNote: {}
+      newTodo: {},
     }
   }
 
-  handleSubmit(e){
-    if(this.state.title === ''){
+
+  handleSubmit(e) {
+    if (this.state.title === '') {
       alert("Title required");
-    }else{
-      this.setState({newNote: {
-        id: uuid.v4(),
-        title: this.state.title,
-        description: this.state.description
-      }}, function(){
-        this.props.addNote(this.state.newNote);
-        this.setState({title : '', description: ''})
-        this.textInputRef1.clear();
-        this.textInputRef2.clear();
-      });
-  }
-  }
+    }
+    else {
+        this.setState({
+          newTodo: {
+            id: uuid.v4(),
+            title: this.state.title,
+            description: this.state.description
+          }
+        }, function () {
+          this.props.addTodo(this.state.newTodo);
+          this.setState({title : '', description: ''})
+          this.textInputRef1.clear();
+          this.textInputRef2.clear();
+        });
+    }
+}
 
-  render(){
+  render() {
     return(
-    <View style={styles.TextInput}>
+    <View style={styles.container}>
 
-    <Text> Here you can add a note! </Text>
+    <Text> Here you can add a todo! </Text>
     <TextInput
       label = "Title"
-      placeholder = "Enter title to note!"
+      placeholder = "Enter title!"
       autoCapitalize = 'sentences'
       onChangeText={(text) => this.setState({title:text})}
       ref={ref => this.textInputRef1 = ref}
@@ -46,7 +50,7 @@ class AddNote extends Component{
 
     <TextInput
       label = "Description"
-      placeholder = "Enter a description to note!"
+      placeholder = "Enter a description to todo!"
       autoCapitalize = 'sentences'
       onChangeText={(text) => this.setState({description:text})}
       onSubmitEditing={(event) => {
@@ -58,7 +62,7 @@ class AddNote extends Component{
     />
 
       <Button
-        title = "Add note"
+        title = "Add todo"
         onPress={() => this.handleSubmit()}
       />
     </View>
@@ -67,7 +71,7 @@ class AddNote extends Component{
 }
 
 const styles = StyleSheet.create({
-  TextInput : {
+  container : {
     justifyContent: 'center',
     alignSelf: 'center',
     width : 300,
@@ -75,4 +79,5 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
 });
-export default AddNote;
+
+export default AddTodo;

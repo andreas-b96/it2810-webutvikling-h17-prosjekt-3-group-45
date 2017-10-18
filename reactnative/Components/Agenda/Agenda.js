@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button, Form, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Form, TextInput, ScrollView } from 'react-native';
+import { Button } from 'react-native-elements';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
+import uuid from 'uuid';
 
 class AgendaScreen extends React.Component {
 
@@ -12,9 +14,9 @@ class AgendaScreen extends React.Component {
       description: '',
       date: moment(),
       newAgenda: {},
-      agendas:[{title: 'Møte', description:'Skal på møte', date: moment().add(3,'days')},
-               {title: 'Hackerspace', description:'Skal på møte', date: moment().add(1,'days')},
-               {title: 'Hackerspace', description:'Skal på møte', date: moment().add(2,'days')}
+      agendas:[{id: uuid.v4(), title: 'IT2810', description:'Innleveringsfrist', date: moment().add(3,'days')},
+               {id: uuid.v4(), title: 'Jobberintervju', description:'Intervju med NAV', date: moment().add(1,'days')},
+               {id: uuid.v4(), title: 'Hackerspace', description:'Skal på møte', date: moment().add(2,'days')}
               ]
     }
   }
@@ -42,7 +44,7 @@ class AgendaScreen extends React.Component {
 
   checkIfButtonSubmitDisable(){
     const {title, description, date} = this.state;
-    if (title.length > 3 && description.length > 5 && date > moment()) {
+    if (title.length > 0 && description.length > 0 && date > moment()) {
       return false;
     }
     return true
@@ -67,6 +69,14 @@ class AgendaScreen extends React.Component {
         });
   }
 
+  handleDeleteAgenda(id){
+    let agendas = this.state.agendas;
+    let index = agendas.findIndex(x => x.id === id);
+    agendas.splice(index, 1);
+    this.setState({agendas: agendas});
+  }
+
+
   Agendas() {
     this.state.agendas.sort(function(a,b){
       return (a.date - b.date);
@@ -75,10 +85,12 @@ class AgendaScreen extends React.Component {
     return this.state.agendas.map(function(agenda, i){
       return(
         <View key={i}>
-          <Text>{agenda.title}</Text>
+          <Text style={styles.Header}>{agenda.title}</Text>
           <View>
-            <Text>{agenda.description}, {moment(agenda.date).format('MMMM Do YYYY, h:mm').toString()}</Text>
+            <Text>{agenda.description}</Text>
+            <Text>{moment(agenda.date).format('MMMM Do YYYY, h:mm').toString()}</Text>
           </View>
+
         </View>
       );
     });
@@ -86,7 +98,9 @@ class AgendaScreen extends React.Component {
 
   render() {
     return(
-    <View style={styles.TextInput}>
+    <View style={styles.container}>
+      <ScrollView>
+      <Text>Here you can add a new event to your agenda</Text>
       <TextInput
       label = "Title"
       placeholder = "Enter title!"
@@ -108,6 +122,8 @@ class AgendaScreen extends React.Component {
       <Button
         onPress = {this.showDateTimePicker}
         title = {this.checktitle()}
+        backgroundColor = '#1e90ff'
+        borderRadius = {5}
         />
 
       <DateTimePicker
@@ -115,27 +131,37 @@ class AgendaScreen extends React.Component {
       onConfirm={this.handleDatePicked}
       onCancel = {this.handleDateTimePicker}
       mode="datetime"
+      backgroundColor = 'red'
       />
 
       <Button
         title = "Submit!"
         disabled = {this.checkIfButtonSubmitDisable()}
         onPress = {() => this.handleSubmit()}
+        backgroundColor = 'red'
+        borderRadius={5}
         />
 
         {this.Agendas()}
-    </View>
+        </ScrollView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  TextInput : {
+  container : {
     justifyContent: 'center',
-    alignSelf: 'center',
+    alignSelf : 'center',
     width : 300,
     paddingTop : 50,
     paddingBottom: 30,
+  },
+  Header:{
+    fontWeight : 'bold',
+    fontSize :16,
+    paddingTop: 5,
+    paddingBottom:2,
   },
 });
 

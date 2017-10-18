@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 import NoteItem from './NoteItem';
 import AddNote from './AddNote';
 import uuid from 'uuid';
 
-import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 
 class Notes extends Component{
   constructor(props){
@@ -11,8 +11,6 @@ class Notes extends Component{
     this.state={
       notes: [
         {id: uuid.v4(), title: 'Make todolist', description: 'Tødden Tøddvik has to make the todolist'},
-        {id: uuid.v4(), title: "Make things great again", description : "Become president on day"},
-        {id: uuid.v4(), title: "Make things great again", description : "Become president on day"},
         {id: uuid.v4(), title: "Make things great again", description : "Become president on day"},
         {id: uuid.v4(), title: "Make things great again", description : "Become president on day"},
         {id: uuid.v4(), title: "Make things great again", description : "Become president on day"}
@@ -44,7 +42,7 @@ class Notes extends Component{
     }
 
     return (
-      <ScrollView style={styles.TextInput}>
+      <ScrollView style={styles.container}>
         <AddNote addNote={this.handleAddNote.bind(this)}/>
         {noteItems}
       </ScrollView>
@@ -53,7 +51,7 @@ class Notes extends Component{
 }
 
 const styles = StyleSheet.create({
-  TextInput : {
+  container : {
     flex : 1,
     alignSelf : 'flex-start',
     paddingLeft: 20,

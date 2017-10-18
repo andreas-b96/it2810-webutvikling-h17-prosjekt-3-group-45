@@ -10,7 +10,7 @@ export default class Contacts extends React.Component{
     this.state={
       contacts: [
         {id : uuid.v4(), name: "Tødden Tøddvik", email: "tødden@gmail.com", phone: "22334455"},
-        {id : uuid.v4(),name: "Kristian Bortne", email : "kristian@gmail.com", phone: "75830144"}
+        {id : uuid.v4(),name: "Kristian Slump", email : "slump@gmail.com", phone: "75830144"}
       ]
     }
   }
@@ -39,7 +39,7 @@ export default class Contacts extends React.Component{
     }
 
     return(
-      <ScrollView style={styles.TextInput}>
+      <ScrollView style={styles.container}>
         <AddContact addContact={this.handleAddContact.bind(this)} />
         {Contacts}
       </ScrollView>
@@ -48,7 +48,7 @@ export default class Contacts extends React.Component{
 }
 
 const styles = StyleSheet.create({
-  TextInput : {
+  container : {
     flex : 1,
     alignSelf : 'flex-start',
     paddingLeft: 20,
