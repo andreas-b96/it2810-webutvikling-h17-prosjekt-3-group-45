@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import TodoItem from './TodoItem';
 import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
+import TodoItem from './TodoItem';
 import AddTodo from './AddTodo';
 import uuid from 'uuid';
 
@@ -44,7 +44,7 @@ class Todos extends React.Component{
     }
 
     return (
-      <ScrollView style={styles.TextInput}>
+      <ScrollView style={styles.container}>
         <AddTodo addTodo={this.handleAddTodo.bind(this)}/>
         {todoItems}
       </ScrollView>
@@ -53,9 +53,10 @@ class Todos extends React.Component{
 }
 
 const styles = StyleSheet.create({
-  TextInput : {
+  container : {
     flex : 1,
     alignSelf : 'flex-start',
+    flexWrap : 'wrap',
     paddingLeft: 20,
     paddingRight : 20,
   },

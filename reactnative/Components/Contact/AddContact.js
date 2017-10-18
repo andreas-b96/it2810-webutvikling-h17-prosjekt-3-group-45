@@ -28,8 +28,8 @@ export class AddContact extends React.Component{
 
   render(){
     return(
-      <View style={styles.TextInput}>
-        <Text>Add Contact</Text>
+      <View style={styles.container}>
+        <Text>Here you can add new contact</Text>
 
         <TextInput
           label = "name"
@@ -79,7 +79,7 @@ export class AddContact extends React.Component{
 }
 
 const styles = StyleSheet.create({
-  TextInput : {
+  container : {
     justifyContent: 'center',
     alignSelf: 'center',
     width : 300,
