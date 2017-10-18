@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   componentWillMount(){
-    const data = localStorage.getItem('squad');
+    const data = localStorage.getItem('store');
     if (data){
       this.setState(JSON.parse(data))
     } else{
@@ -63,7 +63,7 @@ class App extends Component {
 
 
   componentDidMount(){
-    localStorage.setItem('squad', JSON.stringify(this.state));
+    localStorage.setItem('store', JSON.stringify(this.state));
   }
 
   handleAdd(key, value){
@@ -80,7 +80,7 @@ class App extends Component {
     }
     oldVals.push(value);
     this.setState({key} : oldVals);
-    localStorage.setItem('squad', JSON.stringify(this.state));
+    localStorage.setItem('store', JSON.stringify(this.state));
   }
 
   handleDelete(key, id){
@@ -101,14 +101,14 @@ class App extends Component {
     }
     oldVals.splice(index, 1);
     this.setState({key}: oldVals);
-    localStorage.setItem('squad', JSON.stringify(this.state));
+    localStorage.setItem('store', JSON.stringify(this.state));
   }
 
   handleSetName(name){
     this.setState({name:name});
     let state = this.state;
     state.name = name;
-    localStorage.setItem('squad', JSON.stringify(state));
+    localStorage.setItem('store', JSON.stringify(state));
   }
 
   getUpcomingEvents() {
@@ -131,7 +131,7 @@ class App extends Component {
     let events = this.state.eventList;
     events.push(event);
     this.setState({eventList:events});
-    localStorage.setItem('squad', JSON.stringify(this.state));
+    localStorage.setItem('store', JSON.stringify(this.state));
   }
 
   handleRemoveEvent(event){
@@ -142,7 +142,7 @@ class App extends Component {
       }
     }
     this.setState({ eventList : updatedEvent });
-    localStorage.setItem('squad', JSON.stringify(this.state));
+    localStorage.setItem('store', JSON.stringify(this.state));
   }
 
   render() {
